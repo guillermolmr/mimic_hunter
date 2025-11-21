@@ -1,0 +1,116 @@
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+public class HouseDecorator : MonoBehaviour
+{
+
+    public static HouseDecorator instance;
+    public List<Prop> props = new List<Prop>();
+
+    public List<Room> rooms = new List<Room>();
+
+    
+    public List<GameObject>[][] propSourced;
+
+    public GameObject MimicPrefab;
+    public float fillRoom = 0.33f;
+    
+    private void Awake()
+    {
+        instance = this;
+        
+    }
+    void Start()
+    {
+        int roomTypeCount = (int)RoomType.Count;
+        int spotTypeCount = (int)SpotType.Count;
+        propSourced = new List<GameObject>[roomTypeCount][];
+        for(int i=0;i< (int)RoomType.Count; i++)
+        {
+            propSourced[i]= new List<GameObject>[spotTypeCount];
+            for(int j = 0; j < spotTypeCount; j++)
+            {
+                propSourced[i][j] = new List<GameObject>();
+                foreach (Prop prop in props)
+                {
+                    if (
+                        ((int)prop.roomType & (1 << i)) > 0 &&
+                        ((int)prop.spotType & (1 << j)) > 0
+                        )
+                    {
+                        
+                        propSourced[i][j].Add(prop.prop);
+                    }
+                }
+                //Debug.Log( ((RoomType)i).ToString() + ", " + ((SpotType)j).ToString() + ": " + propSourced[i][j].Count);
+            }
+            
+        }
+
+        DecorateRooms();
+    }
+
+    void DecorateRooms()
+    {
+
+
+        foreach(Room room in rooms)
+        {
+            room.Decorate(fillRoom);
+        }
+
+        GameObject mp = Instantiate(MimicPrefab);
+        Mimic mimic = mp.GetComponent<Mimic>();
+        mimic.InitMimic();
+    }
+
+    public GameObject GetRandomProp(RoomType roomType, SpotType spotType)
+    {
+        List<GameObject> list = propSourced[(int)roomType][(int)spotType];
+        if (list.Count==0)
+        {
+            Debug.LogError("There is no prop for spot '" + spotType.ToString() + "' in room '" + roomType.ToString() + "'");
+            return null;
+        }
+        return list[Random.Range(0, list.Count)];
+
+
+
+    }
+    public void DetectRoomPlayer()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
+        {
+            Debug.LogError("Player not found???");
+            return;
+        }
+
+        Vector3 playerPos = player.transform.position;
+        Room roomplayer = null;
+        foreach (Room room in rooms)
+        {
+            //room.hasPlayer = false;
+            //room.isPlayerAdyacentRoom = false;
+            BoxCollider boxCollider = room.GetComponent<BoxCollider>();
+            if (boxCollider == null)
+            {
+                Debug.LogError("Room "+room.name+" has no box collider");
+                return;
+            }
+            if (boxCollider.bounds.Contains(playerPos))
+            {
+                roomplayer = room;
+            }
+
+            
+        }
+        if (roomplayer == null)
+        {
+            Debug.LogError("Player not found in any room");
+            return;
+        }
+        roomplayer.PlayerEnter();
+    }
+}
