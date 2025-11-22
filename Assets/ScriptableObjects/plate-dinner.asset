@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: plate-dinner
   m_EditorClassIdentifier: 
   prop: {fileID: 7618925280038785353, guid: 10f3a12c8f141ca4fa295c9de915d5ad, type: 3}
-  roomType: 127
-  spotType: 6
+  roomType: 11
+  spotType: 2

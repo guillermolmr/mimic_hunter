@@ -53,6 +53,96 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.25, y: 1.2860729, z: 0.05}
   m_Center: {x: 0, y: -0.15064484, z: 0.025}
+--- !u!1 &4482679287087551109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2756835302469703178}
+  - component: {fileID: 5340472598217156629}
+  - component: {fileID: 5343727916974633049}
+  m_Layer: 7
+  m_Name: Cube
+  m_TagString: Interactable
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2756835302469703178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4482679287087551109}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.506, y: 0.489, z: 0.0226}
+  m_LocalScale: {x: 0.4098, y: 1, z: 0.07032872}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 801797971303182909}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5340472598217156629
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4482679287087551109}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5343727916974633049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4482679287087551109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92d6b448c0597424a9e05b2d7d02ac65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnSelect:
+    m_PersistentCalls:
+      m_Calls: []
+  OnUnselect:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1152140387836759641}
+        m_TargetAssemblyTypeName: Door, Assembly-CSharp
+        m_MethodName: DoAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  highLightObjects:
+  - {fileID: 7391611767289595694}
+  OutlineLayer: 6
 --- !u!1 &7264066526233743860
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,9 +208,9 @@ GameObject:
   - component: {fileID: 5943586722107014260}
   - component: {fileID: 7275448320212997255}
   - component: {fileID: 5192736585439920643}
-  - component: {fileID: 6579765478974198806}
-  - component: {fileID: 5011345910145802341}
   - component: {fileID: 1152140387836759641}
+  - component: {fileID: 2172776298931839709}
+  - component: {fileID: 4881051979427692043}
   m_Layer: 7
   m_Name: door
   m_TagString: Interactable
@@ -218,34 +308,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.42930004, y: 0.98118174, z: 0.1134}
   m_Center: {x: 0.21465002, y: 0.49059087, z: 0}
---- !u!54 &6579765478974198806
-Rigidbody:
+--- !u!114 &1152140387836759641
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7391611767289595694}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &5011345910145802341
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d724b94b97af1045910affea9f6ea13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openAngle: 90
+  closedAngle: 0
+  hinge: {fileID: 3908466336013106015}
+  timeAnimation: 0.5
+  CalculateOpenDirection: 1
+  OtherDoor: {fileID: 0}
+  OpenDoorAudio: {fileID: 8300000, guid: 9784a3f72fe3c0e4db7a40b90af4e56b, type: 3}
+  CloseDoorAudio: {fileID: 8300000, guid: 71a7235dd45514149b8b24ffeef49bcd, type: 3}
+--- !u!114 &2172776298931839709
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -278,25 +361,106 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  highLightObjects:
+  - {fileID: 7391611767289595694}
   OutlineLayer: 6
---- !u!114 &1152140387836759641
-MonoBehaviour:
+--- !u!82 &4881051979427692043
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7391611767289595694}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d724b94b97af1045910affea9f6ea13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  openAngle: 90
-  closedAngle: 0
-  hinge: {fileID: 3908466336013106015}
-  timeAnimation: 0.5
-  CalculateOpenDirection: 1
-  OtherDoor: {fileID: 0}
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7964576609434691617
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,6 +554,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9f548e21d155d5f4290a301848a9ff7b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6952584593965152091}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9f548e21d155d5f4290a301848a9ff7b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2756835302469703178}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9f548e21d155d5f4290a301848a9ff7b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3908466336013106015}

@@ -122,7 +122,8 @@ public class ShootingManager : MonoBehaviour
 
     void Update()
     {
-
+        if (!playerController.canShoot)
+            return;
         TargetHighlight();
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -257,8 +258,15 @@ public class ShootingManager : MonoBehaviour
             {
                 Instantiate(bloodSplash, target, camTransform.rotation);
             }
+            else
+            {
+                GameFlowManager.instance.ReportFailShot();
+            }
             targetFurniture.DestroyFurniture();
         }
+
+        
+
         //bulletT.position = muzzle.position;
 
     }

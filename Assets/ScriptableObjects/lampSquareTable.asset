@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: lampSquareTable
   m_EditorClassIdentifier: 
   prop: {fileID: 6607544524410821005, guid: 51c201547b7e54e4aa3884ddd786923d, type: 3}
-  roomType: 127
+  roomType: 115
   spotType: 6

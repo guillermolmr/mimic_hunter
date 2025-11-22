@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: pillowBlue
   m_EditorClassIdentifier: 
   prop: {fileID: 578871060718664333, guid: 34fec450d3030554fa55de3f8cf5ff49, type: 3}
-  roomType: 127
-  spotType: 6
+  roomType: 33
+  spotType: 32

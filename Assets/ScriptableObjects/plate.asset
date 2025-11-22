@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: plate
   m_EditorClassIdentifier: 
   prop: {fileID: 3094915189188583956, guid: b431533b591a2464b9826bb81321289c, type: 3}
-  roomType: 127
-  spotType: 6
+  roomType: 15
+  spotType: 2

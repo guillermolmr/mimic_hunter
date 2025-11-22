@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: coatRackStanding
   m_EditorClassIdentifier: 
   prop: {fileID: 5053707535137978988, guid: 4566be4be0fa2d042bb5b6642516e6c4, type: 3}
-  roomType: 127
-  spotType: 6
+  roomType: 115
+  spotType: 1

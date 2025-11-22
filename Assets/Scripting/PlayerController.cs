@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
 
     bool moveCamera;
     public bool canMove=true;
+    public bool canShoot=true;
     private void Awake()
     {
         instance = this;

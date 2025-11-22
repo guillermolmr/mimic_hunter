@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Bear
   m_EditorClassIdentifier: 
   prop: {fileID: 2158220760572930659, guid: 5324024e16861df4f83996744fd78c60, type: 3}
-  roomType: 127
-  spotType: 6
+  roomType: 115
+  spotType: 8

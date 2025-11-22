@@ -1,5 +1,5 @@
 using System;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,6 +11,9 @@ public class Interactable : MonoBehaviour
     public UnityEvent OnSelect = new UnityEvent();
     public UnityEvent OnUnselect = new UnityEvent();
     public UnityEvent OnAction = new UnityEvent();
+
+    [SerializeField]
+    List<GameObject> highLightObjects = new List<GameObject>();
 
     [SerializeField]
     int OutlineLayer=6;
@@ -35,7 +38,11 @@ public class Interactable : MonoBehaviour
         }
         OnSelect?.Invoke();
         currentSelected = this;
-        gameObject.layer = OutlineLayer;
+        foreach (GameObject go in highLightObjects)
+        {
+            go.layer = OutlineLayer;
+
+        }
     }
 
     public void Unselect()
@@ -48,8 +55,12 @@ public class Interactable : MonoBehaviour
 
         OnUnselect?.Invoke();
 
-        gameObject.layer = currentLayer;
+        
+        foreach (GameObject go in highLightObjects)
+        {
+            go.layer = currentLayer;
 
+        }
 
     }
 

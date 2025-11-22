@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: plantSmall2
   m_EditorClassIdentifier: 
   prop: {fileID: 5406702765584722180, guid: 2841a3a91ffc75e4690be9107769389f, type: 3}
-  roomType: 127
+  roomType: 99
   spotType: 6

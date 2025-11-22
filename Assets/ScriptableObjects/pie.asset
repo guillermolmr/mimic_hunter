@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: pie
   m_EditorClassIdentifier: 
   prop: {fileID: 3488481251621078657, guid: 65d7b61359f1e5744af6237b4409afde, type: 3}
-  roomType: 127
+  roomType: 11
   spotType: 6

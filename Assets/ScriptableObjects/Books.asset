@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Books
   m_EditorClassIdentifier: 
   prop: {fileID: 8205260121646692358, guid: cbbceeb35903c3f4bb89fa7620f58cbf, type: 3}
-  roomType: 127
-  spotType: 6
+  roomType: 115
+  spotType: 4

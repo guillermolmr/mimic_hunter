@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: speaker
   m_EditorClassIdentifier: 
   prop: {fileID: 7527858065119999313, guid: 19f4a7c6df52b5143b5b2afbd1ff4fd8, type: 3}
-  roomType: 127
-  spotType: 6
+  roomType: 115
+  spotType: 1

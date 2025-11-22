@@ -45,8 +45,8 @@ public class Mimic : MonoBehaviour
 
     GameObject mimicProp;
 
-    Room room;
-    Spot spot;
+    public Room room{get; private set;}
+    public Spot spot {get; private set;}
 
     AudioSource audioSource;
 
@@ -283,7 +283,8 @@ public class Mimic : MonoBehaviour
 
     void Die()
     {
-        
+
+        GameFlowManager.instance.ReportMimicDeath(this);
         gameObject.SetActive(false);
         room.FreeSpot(spot);
     }

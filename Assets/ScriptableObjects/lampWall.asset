@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prop: {fileID: 4076616292587317732, guid: 52569a01fe03a3e49b097f8f272a2ed9, type: 3}
   roomType: 127
-  spotType: 6
+  spotType: 8

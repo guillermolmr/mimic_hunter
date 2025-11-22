@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: radio
   m_EditorClassIdentifier: 
   prop: {fileID: 2655751620830551409, guid: 8f4ba7cdec2b59449a6c9a2638d15f12, type: 3}
-  roomType: 127
+  roomType: 123
   spotType: 6

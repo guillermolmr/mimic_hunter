@@ -13,7 +13,7 @@ public class HouseDecorator : MonoBehaviour
     
     public List<GameObject>[][] propSourced;
 
-    public GameObject MimicPrefab;
+    
     public float fillRoom = 0.33f;
     
     private void Awake()
@@ -21,15 +21,20 @@ public class HouseDecorator : MonoBehaviour
         instance = this;
         
     }
-    void Start()
+    
+
+
+    public void Init()
     {
+        if (instance == null)
+            instance = this;
         int roomTypeCount = (int)RoomType.Count;
         int spotTypeCount = (int)SpotType.Count;
         propSourced = new List<GameObject>[roomTypeCount][];
-        for(int i=0;i< (int)RoomType.Count; i++)
+        for (int i = 0; i < (int)RoomType.Count; i++)
         {
-            propSourced[i]= new List<GameObject>[spotTypeCount];
-            for(int j = 0; j < spotTypeCount; j++)
+            propSourced[i] = new List<GameObject>[spotTypeCount];
+            for (int j = 0; j < spotTypeCount; j++)
             {
                 propSourced[i][j] = new List<GameObject>();
                 foreach (Prop prop in props)
@@ -39,18 +44,17 @@ public class HouseDecorator : MonoBehaviour
                         ((int)prop.spotType & (1 << j)) > 0
                         )
                     {
-                        
+
                         propSourced[i][j].Add(prop.prop);
                     }
                 }
                 //Debug.Log( ((RoomType)i).ToString() + ", " + ((SpotType)j).ToString() + ": " + propSourced[i][j].Count);
             }
-            
+
         }
 
         DecorateRooms();
     }
-
     void DecorateRooms()
     {
 
@@ -60,9 +64,7 @@ public class HouseDecorator : MonoBehaviour
             room.Decorate(fillRoom);
         }
 
-        GameObject mp = Instantiate(MimicPrefab);
-        Mimic mimic = mp.GetComponent<Mimic>();
-        mimic.InitMimic();
+        
     }
 
     public GameObject GetRandomProp(RoomType roomType, SpotType spotType)

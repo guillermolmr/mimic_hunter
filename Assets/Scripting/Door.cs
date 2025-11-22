@@ -25,6 +25,11 @@ public class Door : MonoBehaviour
     
     public Transform OtherDoor;
 
+    public AudioClip OpenDoorAudio;
+    public AudioClip CloseDoorAudio;
+
+    AudioSource audioSource;
+
     public void DoAnimation()
     {
 
@@ -33,26 +38,32 @@ public class Door : MonoBehaviour
         canAnimate = false;
         if (isOpen)
         {
+            audioSource.resource = CloseDoorAudio;
             StartCoroutine(AnimateDoor(angle, closedAngle));
             isOpen = false;
         }
         else
         {
+            audioSource.resource = OpenDoorAudio;
             Vector3 dirPlayer = playerTransform.position - transform.position;
             float dot = Vector3.Dot(hinge.forward, dirPlayer);
 
             if (CalculateOpenDirection)
             {
+                
                 StartCoroutine(AnimateDoor(closedAngle, dot > 0f ? openAngle : -openAngle));
             }
             else
             {
+                
                 StartCoroutine(AnimateDoor(closedAngle, openAngle));
             }
             
+            
             isOpen = true;
         }
-        
+        audioSource?.Play();
+
     }
 
     IEnumerator AnimateDoor(float startAngle, float endAngle)
@@ -82,6 +93,7 @@ public class Door : MonoBehaviour
     {
         playerTransform = PlayerController.instance.transform;
         canAnimate = true;
+        audioSource = GetComponent<AudioSource>();
     }
 
     

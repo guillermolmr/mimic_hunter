@@ -27,7 +27,7 @@ public class Room : MonoBehaviour
     public void Decorate(float fill = 0.5f)
     {
         int N = spots.Count;
-        int half = Mathf.RoundToInt(N* fill); //this can be changed later to increase level dificulty
+        int half = (int)(N* fill); //this can be changed later to increase level dificulty
         Debug.Log("Decorating " + name);
         
         List<Spot> copy = new List<Spot>(spots);
@@ -230,7 +230,7 @@ public class Room : MonoBehaviour
         List<RoomConection> validRC = new List<RoomConection>();
         foreach (RoomConection rc in roomConections)
         {
-            if (canOpen)
+            if (!canOpen)
             {
                 if (rc.door.isOpen && !rc.room.hasPlayer)
                     validRC.Add(rc);

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: pizza
   m_EditorClassIdentifier: 
   prop: {fileID: 8724354010094128983, guid: 4dc8655e91020b047b6b64b1ac4d2607, type: 3}
-  roomType: 127
-  spotType: 6
+  roomType: 11
+  spotType: 2

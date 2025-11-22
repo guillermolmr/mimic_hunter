@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: toaster
   m_EditorClassIdentifier: 
   prop: {fileID: 270836039225153698, guid: e14d5b033d8dfb54ba43a399e833a39d, type: 3}
-  roomType: 127
+  roomType: 10
   spotType: 6
