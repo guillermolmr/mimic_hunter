@@ -4,12 +4,15 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
 
-    public bool isOpen { get; private set; }
+    public bool isOpen;
     bool canAnimate = true;
     [SerializeField]
     float openAngle = 90;
     [SerializeField]
     float closedAngle = 0;
+
+    
+
     [SerializeField]
     Transform hinge;
 
@@ -30,6 +33,20 @@ public class Door : MonoBehaviour
 
     AudioSource audioSource;
 
+    public void Open()
+    {
+        if (!isOpen)
+        {
+            DoAnimation();
+        }
+    }
+    public void Close()
+    {
+        if (isOpen)
+        {
+            DoAnimation();
+        }
+    }
     public void DoAnimation()
     {
 

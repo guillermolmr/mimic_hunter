@@ -46,6 +46,8 @@ public class ShootingManager : MonoBehaviour
     GameObject ashDecalPrefab;
     [SerializeField]
     GameObject bloodSplash;
+    [SerializeField]
+    LayerMask shootingLayerMask;
     float beamWidth;
     float itime;
 
@@ -72,7 +74,7 @@ public class ShootingManager : MonoBehaviour
 
     void TargetHighlight()
     {
-        isHitting = Physics.Raycast(camTransform.position, camTransform.forward, out hit, 100f);
+        isHitting = Physics.Raycast(camTransform.position, camTransform.forward, out hit, 100f, shootingLayerMask);
 
         if (isHitting)
         {
@@ -89,7 +91,6 @@ public class ShootingManager : MonoBehaviour
                         targetFurniture.UnhighLight();
                         targetFurniture = f;
                         targetFurniture.HighLight();
-                        DebugCanvas.instance.text.text = targetFurniture.name;
 
                     }
 
@@ -98,7 +99,6 @@ public class ShootingManager : MonoBehaviour
                 {
                     targetFurniture = f;
                     targetFurniture.HighLight();
-                    DebugCanvas.instance.text.text = targetFurniture.name;
                 }
                 
 

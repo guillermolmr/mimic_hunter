@@ -209,6 +209,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  highLightObjects: []
   OutlineLayer: 6
 --- !u!114 &1498324172505893198
 MonoBehaviour:
@@ -228,6 +229,8 @@ MonoBehaviour:
   timeAnimation: 0.5
   CalculateOpenDirection: 0
   OtherDoor: {fileID: 0}
+  OpenDoorAudio: {fileID: 0}
+  CloseDoorAudio: {fileID: 0}
 --- !u!1 &7180399763602734441
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5409018306655736574
 Transform:
   m_ObjectHideFlags: 0
@@ -374,6 +377,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  highLightObjects: []
   OutlineLayer: 6
 --- !u!114 &410584598544358386
 MonoBehaviour:
@@ -393,6 +397,8 @@ MonoBehaviour:
   timeAnimation: 0.5
   CalculateOpenDirection: 0
   OtherDoor: {fileID: 0}
+  OpenDoorAudio: {fileID: 0}
+  CloseDoorAudio: {fileID: 0}
 --- !u!1 &7468718168471406630
 GameObject:
   m_ObjectHideFlags: 0

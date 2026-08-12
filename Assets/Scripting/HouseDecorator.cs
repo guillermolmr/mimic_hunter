@@ -14,7 +14,7 @@ public class HouseDecorator : MonoBehaviour
     public List<GameObject>[][] propSourced;
 
     
-    public float fillRoom = 0.33f;
+    
     
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class HouseDecorator : MonoBehaviour
     
 
 
-    public void Init()
+    public void Init(float fillRoom)
     {
         if (instance == null)
             instance = this;
@@ -53,11 +53,11 @@ public class HouseDecorator : MonoBehaviour
 
         }
 
-        DecorateRooms();
+        DecorateRooms(fillRoom);
     }
-    void DecorateRooms()
+    void DecorateRooms(float fillRoom)
     {
-
+        
 
         foreach(Room room in rooms)
         {
@@ -91,8 +91,13 @@ public class HouseDecorator : MonoBehaviour
 
         Vector3 playerPos = player.transform.position;
         Room roomplayer = null;
+        Room oldRoom = null;
         foreach (Room room in rooms)
         {
+            if (room.hasPlayer)
+            {
+                oldRoom = room;
+            }
             //room.hasPlayer = false;
             //room.isPlayerAdyacentRoom = false;
             BoxCollider boxCollider = room.GetComponent<BoxCollider>();
@@ -110,7 +115,7 @@ public class HouseDecorator : MonoBehaviour
         }
         if (roomplayer == null)
         {
-            Debug.LogError("Player not found in any room");
+            //Debug.LogError("Player not found in any room");
             return;
         }
         roomplayer.PlayerEnter();

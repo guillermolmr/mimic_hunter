@@ -25,6 +25,7 @@ public enum SpotType
     Ceiling,
     Sitting,
     TVLike,
+    Little,
     Count
 }
 

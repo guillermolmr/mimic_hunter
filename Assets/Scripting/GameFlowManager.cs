@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,35 +26,61 @@ public class GameFlowManager :MonoBehaviour
     HouseDecorator houseDecorator;
     [SerializeField]
     GameObject victoryScreen;
+    [SerializeField]
+    GameObject gameCompletedScreen
+        ;
+    [SerializeField]
+    GameObject gameOverScreen;
 
+    [SerializeField]
+    TextMeshProUGUI mimicsCounter;
+    [SerializeField]
+    List<GameObject> strikesGO = new List<GameObject>();
+    [SerializeField]
+    GameObject RulesCreen;
 
     [Header("Prefabs")]
     public GameObject MimicPrefab;
 
+    public float fillRoom = 0.33f;
+
     private void Awake()
     {
         instance = this;
-        houseDecorator.Init();
-        SpawnMimics();
+        int level = DificultyManager.Instance.level;
+        int numMimics = 1+level; 
+        if (level>=3)
+        {
+            fillRoom = 0.5f;
+
+        }
+        houseDecorator.Init(fillRoom);
+        SpawnMimics(numMimics);
+        mimicsCounter.text = mimics.ToString();
+
     }
 
 
     void SpawnMimics(int num = 1)
     {
-        for(int i=0; i < num; i++)
+
+        mimics = 0;
+        for (int i=0; i < num; i++)
         {
             GameObject mp = Instantiate(MimicPrefab);
             Mimic mimic = mp.GetComponent<Mimic>();
-            mimic.InitMimic();
+            mimic.InitMimic(num > 1);
+            
             listMimics.Add(mimic);
+            mimics++;
         }
         
     }
     public void ReportMimicDeath(Mimic mimic)
     {
-
         listMimics.Remove(mimic);
         mimics--;
+        mimicsCounter.text = mimics.ToString() ;
         if (mimics <= 0)
         {
             LevelCompleted();
@@ -65,6 +92,12 @@ public class GameFlowManager :MonoBehaviour
 
     public void ReportFailShot()
     {
+        
+        if (strikes < strikesGO.Count)
+        {
+            strikesGO[strikes].SetActive(true);
+
+        }
         strikes++;
         if (strikes>=maxStrikes)
         {
@@ -102,7 +135,7 @@ public class GameFlowManager :MonoBehaviour
         yield return null;
 
         //mimic Animation
-        mimic.Activate();
+        yield return mimic.Activate();
 
         /*
         cd = 0f;
@@ -156,22 +189,45 @@ public class GameFlowManager :MonoBehaviour
     {
         PlayerController.instance.canMove = false;
         PlayerController.instance.canShoot = false;
-        victoryScreen.SetActive(true);
+        
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
+        if (DificultyManager.Instance.level == 4)
+        {
+            gameCompletedScreen.SetActive(true);
+            //show game completed screen
+        }
+        else
+        {
+            victoryScreen.SetActive(true);
+            DificultyManager.Instance.level++;
+        }
+            
     }
 
     public void GameOver()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        PlayerController.instance.canMove = false;
+        PlayerController.instance.canShoot = false;
+
+        gameOverScreen.SetActive(true);
 
     }
 
     public void RetryLevel()
     {
         SceneManager.LoadScene("HouseScene");
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RetryLevel();
+        }
+        RulesCreen.SetActive(Input.GetKey(KeyCode.Tab));
     }
 
 }

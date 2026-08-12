@@ -1,8 +1,9 @@
 
 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
+
 
 public class Mimic : MonoBehaviour
 {
@@ -58,20 +59,26 @@ public class Mimic : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void InitMimic()
+    public void InitMimic(bool _canOpenDoors)
     {
+        canOpenDoors = _canOpenDoors;
         List<Room> rooms = HouseDecorator.instance.rooms;
         room = rooms[Random.Range(0, rooms.Count)];
-
-        spot = room.freeSpots[Random.Range(0, room.freeSpots.Count)];
-
+        try
+        {
+            spot = room.freeSpots[Random.Range(0, room.freeSpots.Count)];
+        }catch(System.Exception e)
+        {
+            Debug.LogError(e.ToString());
+            return;
+        }
 
         GameObject prefab = HouseDecorator.instance.GetRandomProp(room.roomType, spot.spotType);
         if (prefab == null)
         {
             prefab = FastSwap();
         }
-
+        transform.parent = spot.transform;
         transform.position = spot.transform.position;
         transform.rotation = spot.transform.rotation;
 
@@ -83,6 +90,7 @@ public class Mimic : MonoBehaviour
 
     void SwapInRoom()
     {
+        Spot oldSpot = spot;
         room.FreeSpot(spot);
         spot = room.freeSpots[Random.Range(0, room.freeSpots.Count)];
         Destroy(mimicProp);
@@ -91,12 +99,15 @@ public class Mimic : MonoBehaviour
         {
             prefab = FastSwap();
         }
+        transform.parent = spot.transform;
         transform.position = spot.transform.position;
         transform.rotation = spot.transform.rotation;
-
         SpawnPrefab(prefab);
         room.UseSpot(spot);
-
+        if (oldSpot != spot && !oldSpot.isSiblingOf(spot))
+        {
+            oldSpot.mimicSwapOut?.Invoke();
+        }
 
     }
 
@@ -104,6 +115,7 @@ public class Mimic : MonoBehaviour
 
     void SwapRoom(Room targetRoom, bool openDoor)
     {
+        Spot oldSpot = spot;
         room.FreeSpot(spot);
         Destroy(mimicProp);
         if (openDoor)
@@ -122,19 +134,25 @@ public class Mimic : MonoBehaviour
 
         room = targetRoom;
         spot = room.freeSpots[Random.Range(0, room.freeSpots.Count)];
+        if (oldSpot != spot)
+        {
+            oldSpot.mimicSwapOut?.Invoke();
+        }
 
         GameObject prefab = HouseDecorator.instance.GetRandomProp(room.roomType, spot.spotType);
         if (prefab == null)
         {
             prefab = FastSwap();
         }
-
+        transform.parent = spot.transform;
         transform.position = spot.transform.position;
         transform.rotation = spot.transform.rotation;
 
         SpawnPrefab(prefab);
         room.UseSpot(spot);
-
+#if UNITY_EDITOR
+        Debug.Log("Mimic swaped to room: " + room.name);
+#endif
     }
 
     GameObject FastSwap()
@@ -169,6 +187,19 @@ public class Mimic : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             PlayRandomSound();
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            SwapInRoom();
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            RoomConection rc = room.getConectedRoomWithoutPlayer(true);
+            if (rc != null )
+            {
+                SwapRoom(rc.room, true);
+                
+            }
         }
 #endif
         if (!initialized)
@@ -243,18 +274,69 @@ public class Mimic : MonoBehaviour
 
 
     }
-
-
-    public void Activate()
+    IEnumerator MoveTo(Vector3 v)
     {
-        Vector3 dir = transform.position - CameraTransform.position;
+        float timeToMoveOut = 0.5f;
+        float itime = 1f / timeToMoveOut;
+        float cd = 0f;
+
+        Vector3 origin = transform.position;
+        while (cd < 1f)
+        {
+            cd += Time.deltaTime * itime;
+            transform.position = Vector3.Lerp(origin,v,cd);
+            CameraTransform.rotation = Quaternion.LookRotation(transform.position - CameraTransform.position);
+            yield return null;
+        }
+
+
+    }
+    IEnumerator CheckRoute()
+    {
+        
+        Vector3 origin = transform.position + new Vector3(0f,0.05f,0f);
+        if (!Physics.Raycast(origin, Vector3.up, 0.4f))
+        {
+            yield return MoveTo(origin + Vector3.up * 0.4f);
+        }
+        else if (!Physics.Raycast(origin, Vector3.forward,0.4f))
+        {
+            yield return MoveTo(origin+Vector3.forward*0.4f);
+        }
+        else if(!Physics.Raycast(origin, -Vector3.forward, 0.4f))
+        {
+            yield return MoveTo(origin - Vector3.forward * 0.4f);
+        }
+        else if (!Physics.Raycast(origin, Vector3.right, 0.4f))
+        {
+            yield return MoveTo(origin + Vector3.right * 0.4f);
+        }
+        else if (!Physics.Raycast(origin, -Vector3.right, 0.4f))
+        {
+            yield return MoveTo(origin - Vector3.right * 0.4f);
+        }
+        
+    }
+    public IEnumerator Activate()
+    {
+        
+
+        spot.mimicSwapOut?.Invoke();
+        yield return new WaitForSeconds(0.5f);
         RaycastHit hit;
+        if (Physics.Raycast(transform.position, CameraTransform.position- transform.position, out hit) && !hit.collider.CompareTag("Player"))
+        {
+            yield return CheckRoute();
+        }
+        Vector3 dir = transform.position - CameraTransform.position;
+        
         if (Physics.Raycast(CameraTransform.position, dir, out hit))
         {
             eyeMouth.position = hit.point;
             eyeMouth.forward = dir;
             eyeMouth.gameObject.SetActive(true);
         }
+        yield return null;
     }
     void SpawnPrefab(GameObject prefab)
     {

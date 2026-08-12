@@ -48,12 +48,23 @@ public class Room : MonoBehaviour
 
         foreach (Spot spot in usedSpots)
         {
-            List<GameObject> validSpotTypeProps = propsAvalible[(int)spot.spotType];
+            List<GameObject> validSpotTypeProps=null;
+            try
+            {
+
+                validSpotTypeProps = propsAvalible[(int)spot.spotType];
+            }
+            catch(System.Exception e)
+            {
+                Debug.LogError(e.ToString());
+            }
+
             int count = validSpotTypeProps.Count;
             if (count > 0)
             {
                 GameObject randomProp = validSpotTypeProps[Random.Range(0, count)];
                 GameObject go=Instantiate(randomProp, spot.transform.position, spot.transform.rotation);
+                go.transform.parent = spot.transform;
                 Furniture f = go.GetComponent<Furniture>();
                 f.Init(this, spot, true);
                 //Debug.Log("Spawn " + randomProp.name);
@@ -66,7 +77,7 @@ public class Room : MonoBehaviour
         }
 
     }
-
+#if UNITY_EDITOR
     [Button]
     public void FindSpots()
     {
@@ -116,9 +127,11 @@ public class Room : MonoBehaviour
                 }
             }
         }
+
         EditorUtility.SetDirty(this);
 
     }
+#endif
     public void UseSpot(Spot spot)
     {
         if (freeSpots.Contains(spot))

@@ -14,6 +14,7 @@ public class Interactable : MonoBehaviour
 
     [SerializeField]
     List<GameObject> highLightObjects = new List<GameObject>();
+    List<int> highLightObjectsLayer = new List<int>();
 
     [SerializeField]
     int OutlineLayer=6;
@@ -25,6 +26,10 @@ public class Interactable : MonoBehaviour
     private void Start()
     {
         currentLayer = gameObject.layer;
+        for (int i= 0;i<highLightObjects.Count;i++)
+        {
+            highLightObjectsLayer.Add(highLightObjects[i].layer);
+        }
     }
 
     public void Select()
@@ -55,11 +60,10 @@ public class Interactable : MonoBehaviour
 
         OnUnselect?.Invoke();
 
-        
-        foreach (GameObject go in highLightObjects)
-        {
-            go.layer = currentLayer;
 
+        for (int i = 0; i < highLightObjects.Count; i++)
+        {
+            highLightObjects[i].layer=highLightObjectsLayer[i];
         }
 
     }

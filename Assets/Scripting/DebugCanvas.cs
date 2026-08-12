@@ -22,13 +22,13 @@ public class DebugCanvas : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
+        
         string str = "";
         foreach(Room room in HouseDecorator.instance.rooms)
         {
             str += room.name + ": \t\thasPlayer(" + room.hasPlayer.ToString() + ")\t playerAdyacent(" + room.isPlayerAdyacentRoom + ") playerSeen("+room.hasPlayerSeen+")\n";
         }
 
-        text.text = str;*/
+        text.text = str;
     }
 }

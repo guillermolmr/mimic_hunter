@@ -1,4 +1,6 @@
 using System.Collections;
+using TMPro;
+
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -26,11 +28,20 @@ public class PlayerController : MonoBehaviour
     bool moveCamera;
     public bool canMove=true;
     public bool canShoot=true;
+
+    [SerializeField]
+    TextMeshProUGUI sensibilityValue;
+    float alpha = 0f;
     private void Awake()
     {
         instance = this;
         controller = GetComponent<CharacterController>();
         StartCoroutine(FixStartCamera());
+        if (DificultyManager.Instance.mouseSensitivity != 0f)
+        {
+            mouseSensitivity = DificultyManager.Instance.mouseSensitivity;
+        }
+        
     }
 
     
@@ -59,6 +70,30 @@ public class PlayerController : MonoBehaviour
         if (moveCamera)
             CameraRotation();
         Movement();
+        
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if(scroll>0.01f) // forward
+        {
+            alpha = 1f;
+            mouseSensitivity += 0.025f;
+            DificultyManager.Instance.mouseSensitivity = mouseSensitivity;
+
+        }
+        if (scroll<-0.01) // backwards
+        {
+            alpha = 1f;
+            mouseSensitivity -= 0.025f;
+            DificultyManager.Instance.mouseSensitivity=mouseSensitivity ;
+        }
+        mouseSensitivity = Mathf.Clamp(mouseSensitivity, 0.01f, 2f);
+        sensibilityValue.text = Mathf.RoundToInt(mouseSensitivity*100f).ToString();
+        if (alpha > 0f)
+        {
+            alpha -= Time.deltaTime;
+        }
+        Color color = sensibilityValue.color;
+        color.a = alpha;
+        sensibilityValue.color = color;
     }
 
 
